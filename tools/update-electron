@@ -23,7 +23,7 @@ elif [ "$BUILD_ARCH" == "arm64" ];then
   BUILD_ARCH="arm64"
 fi
 download_url="https://npmmirror.com/mirrors/electron/${electron_version}/electron-v${electron_version}-linux-${BUILD_ARCH}.zip"
-download_url="https://github.com/electron/electron/releases/download/v${electron_version}/electron-v${electron_version}-linux-${BUILD_ARCH}[A.zip"
+download_url="https://github.com/electron/electron/releases/download/v${electron_version}/electron-v${electron_version}-linux-${BUILD_ARCH}.zip"
 if [ "$BUILD_ARCH" == "loong64" ];then
   # 新世界
   electron_version="22.3.27"
