@@ -83,13 +83,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-app-base.src
+          name: bilibili-app.src
           path: tmp/src
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-app-base.build
+          name: bilibili-app.build
           path: tmp/build
 
   build-linux-simple:
@@ -164,7 +164,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}-simple.build
+          name: bilibili-${{ matrix.ARCH }}.build
           path: tmp/build
 
   build-linux-package:
@@ -232,7 +232,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}-linux.build
+          name: bilibili-${{ matrix.ARCH }}.build
           path: tmp/build
 
   build-win:
@@ -301,7 +301,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}-win.build
+          name: bilibili-${{ matrix.ARCH }}.build
           path: tmp/build
 
   build-deepin:
@@ -385,7 +385,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}-deepin.build
+          name: bilibili-${{ matrix.ARCH }}.build
           path: tmp/build
 
   # build-arch:
@@ -508,10 +508,10 @@ jobs:
   upload:
     name: Create release and upload artifacts
     needs:
-      - build-linux-simple
+#      - build-linux-simple
       - build-linux-package
-      - build-win
-      - build-deepin
+#      - build-win
+#      - build-deepin
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
