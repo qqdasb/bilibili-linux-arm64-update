@@ -66,7 +66,7 @@ cat "app/main/assets/bili-bridge.js" >> "app/main/assets/temp.js"
 rm "app/main/assets/bili-bridge.js"
 mv "app/main/assets/temp.js" "app/main/assets/bili-bridge.js"
 cp "$root_dir/res/protos/dynamic.proto" "app/main/assets/protos/dynamic.proto"
-mkdir tmp
+mkdir -p tmp
 cd tmp
 echo "{}" > package.json
 npm install @grpc/grpc-js

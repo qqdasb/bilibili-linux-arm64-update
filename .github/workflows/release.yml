@@ -27,11 +27,11 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: 'recursive'
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
 
       - name: Prepare
         run: |
@@ -80,13 +80,13 @@ jobs:
           mv ./tmp/build/extensions-${{ steps.tag.outputs.tag }}.tar.gz ./tmp/build/extensions-${version}-continuous.tar.gz
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: bilibili-app.src
           path: tmp/src
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: bilibili-app.build
@@ -105,16 +105,16 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: 'recursive'
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bilibili-app.src
           path: tmp/src
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
 
       - name: Prepare
         env:
@@ -161,7 +161,7 @@ jobs:
           mv ./tmp/build/bilibili-${version}-${{ steps.tag.outputs.tag }}-${{ matrix.ARCH }}.tar.gz ./tmp/build/bilibili-${{ steps.tag.outputs.tag }}-${{ matrix.ARCH }}.tar.gz
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: bilibili-${{ matrix.ARCH }}.build
@@ -180,9 +180,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bilibili-app.src
           path: tmp/src
@@ -229,7 +229,7 @@ jobs:
           # tools/build-appimage.sh ${{ steps.tag.outputs.tag }} ${{ matrix.ARCH }}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: bilibili-${{ matrix.ARCH }}.build
@@ -248,9 +248,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bilibili-app.src
           path: tmp/src
@@ -298,7 +298,7 @@ jobs:
           # tools/build-appimage.sh ${{ steps.tag.outputs.tag }} ${{ matrix.ARCH }}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: bilibili-${{ matrix.ARCH }}.build
@@ -316,9 +316,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: bilibili-app.src
           path: tmp/src
@@ -382,7 +382,7 @@ jobs:
           fi
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: bilibili-${{ matrix.ARCH }}.build
@@ -399,11 +399,11 @@ jobs:
   #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v4
   #       with:
   #         submodules: 'recursive'
   #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v2
+  #       uses: actions/setup-node@v4
   #       with:
   #         node-version: ${{ matrix.node-version }}
   #         cache: 'npm'
@@ -459,7 +459,7 @@ jobs:
   #         ls -l
 
   #     - name: Upload artifact
-  #       uses: actions/upload-artifact@v3
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         # Artifact name
   #         name: bilibili-${{ matrix.ARCH }}.build
@@ -476,7 +476,7 @@ jobs:
   #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v4
   #       with:
   #         submodules: 'recursive'
   #     - name: Install Snapcraft
@@ -499,7 +499,7 @@ jobs:
   #         mkdir -p tmp/build
   #         mv *.snap tmp/build
   #     - name: Upload artifact
-  #       uses: actions/upload-artifact@v3
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         # Artifact name
   #         name: bilibili-${{ matrix.ARCH }}.build
@@ -515,7 +515,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
       - name: Inspect directory after downloading artifacts
         run: |
           rm -rf ./bilibili-app.src
