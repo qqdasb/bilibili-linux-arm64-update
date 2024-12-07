@@ -83,13 +83,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-app.src
+          name: bilibili-app-base.src
           path: tmp/src
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-app.build
+          name: bilibili-app-base.build
           path: tmp/build
 
   build-linux-simple:
@@ -100,7 +100,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [23.x]
         ARCH: ['x64', 'arm64', 'loong64', 'loongarch64']
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -120,7 +120,7 @@ jobs:
         env:
           BUILD_ARCH: ${{ matrix.ARCH }}
         run: |
-          sudo apt install wget exiftool
+          sudo apt install wget exiftool binutils-aarch64-linux-gnu
           sudo npm install asar -g
           echo "$UID, $GID"
           ls -l
@@ -164,7 +164,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-simple.build
           path: tmp/build
 
   build-linux-package:
@@ -175,7 +175,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [23.x]
         ARCH: ['x64', 'loong64']
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -232,7 +232,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-linux.build
           path: tmp/build
 
   build-win:
@@ -243,7 +243,7 @@ jobs:
     container: scottyhardy/docker-wine
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [23.x]
         ARCH: ['x64']
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -301,7 +301,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-win.build
           path: tmp/build
 
   build-deepin:
@@ -385,7 +385,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-deepin.build
           path: tmp/build
 
   # build-arch:
@@ -394,7 +394,7 @@ jobs:
   #   timeout-minutes: 30
   #   strategy:
   #     matrix:
-  #       node-version: [16.x]
+  #       node-version: [23.x]
   #       ARCH: ['x86_64']
   #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -471,7 +471,7 @@ jobs:
   #   timeout-minutes: 30
   #   strategy:
   #     matrix:
-  #       node-version: [16.x]
+  #       node-version: [23.x]
   #       ARCH: ['x86_64']
   #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
