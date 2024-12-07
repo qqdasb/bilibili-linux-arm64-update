@@ -83,13 +83,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-app.src
+          name: bilibili-app-base.src
           path: tmp/src
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-app.build
+          name: bilibili-app-base.build
           path: tmp/build
 
   build-linux-simple:
@@ -111,7 +111,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bilibili-app.src
+          name: bilibili-app-base.src
           path: tmp/src
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -120,7 +120,7 @@ jobs:
         env:
           BUILD_ARCH: ${{ matrix.ARCH }}
         run: |
-          sudo apt install wget exiftool binutils-aarch64-linux-gnu
+          sudo apt install wget exiftool
           sudo npm install asar -g
           echo "$UID, $GID"
           ls -l
@@ -164,7 +164,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-simple.build
           path: tmp/build
 
   build-linux-package:
@@ -184,7 +184,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bilibili-app.src
+          name: bilibili-app-base.src
           path: tmp/src
 
       - name: Prepare
@@ -232,7 +232,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-linux.build
           path: tmp/build
 
   build-win:
@@ -252,7 +252,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bilibili-app.src
+          name: bilibili-app-base.src
           path: tmp/src
 
       - uses: actions/setup-node@v4
@@ -301,14 +301,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-win.build
           path: tmp/build
 
   build-deepin:
     name: Build Deepin Package
     needs:
       - build-app
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -320,12 +320,12 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bilibili-app.src
+          name: bilibili-app-base.src
           path: tmp/src
 
       - name: Prepare
         run: |
-          sudo apt update && sudo apt-get install -y build-essential fakeroot devscripts debhelper # debmake lintian pbuilder
+          sudo apt update && sudo apt-get install -y build-essential fakeroot devscripts debhelper binutils-aarch64-linux-gnu # debmake lintian pbuilder
 
       - name: Generate TAG
         id: Tag
@@ -385,7 +385,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Artifact name
-          name: bilibili-${{ matrix.ARCH }}.build
+          name: bilibili-${{ matrix.ARCH }}-deb.build
           path: tmp/build
 
   # build-arch:
@@ -508,10 +508,10 @@ jobs:
   upload:
     name: Create release and upload artifacts
     needs:
-#      - build-linux-simple
+      - build-linux-simple
       - build-linux-package
-#      - build-win
-#      - build-deepin
+      - build-win
+      - build-deepin
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
